@@ -1,9 +1,9 @@
 import { Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const VideoItem = ({ thumbnail_url, title, desc }) => {
+const VideoItem = ({ thumbnail_url, title, desc, id }) => {
   return (
-    <Link to="/id">
+    <Link to={`/${id}`}>
       <Box
         display={"flex"}
         flexDirection={"column"}
@@ -21,8 +21,8 @@ const VideoItem = ({ thumbnail_url, title, desc }) => {
           `url("${thumbnail_url}")`
         }
       >
-        <Text color={"white"} fontWeight={"bold"} fontSize={4}>{ title }</Text>
-        <p>{ desc }</p>
+        <Text textOverflow={"ellipsis"} noOfLines={1} color={"white"} fontWeight={"bold"} fontSize={16}>{ title }</Text>
+        <Text textOverflow={"ellipsis"} noOfLines={1} color={"white"} fontWeight={"normal"} fontSize={16} >{ desc }</Text>
       </Box>
     </Link>
   );
