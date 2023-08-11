@@ -9,8 +9,26 @@ import {
 import { Search2Icon } from "@chakra-ui/icons";
 
 import VideoItem from "../components/video_item";
+import { useEffect, useState } from "react";
+import { client } from "../utils/http_client";
 
 const HomePage = () => {
+  let [keyword, setKeyword] = useState(null);
+  let [data, setData] = useState([]);
+
+  let getData = async () => {
+    let res = await client.get(`/video?keyword=${keyword ?? ""}`);
+    setData(res.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, [keyword]);
+
+  function handleSearch(e) {
+    setKeyword(e.target.value);
+  }
+
   return (
     <Box mx={"80px"}>
       <Flex alignItems={"center"} py={"16px"} gap={4}>
@@ -23,29 +41,27 @@ const HomePage = () => {
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />
           </InputLeftElement>
-          <Input type="text" placeholder="Cari" />
+          <Input type="text" onChange={handleSearch} placeholder="Cari" />
         </InputGroup>
       </Flex>
       <Grid
         mb={"32px"}
-        justifyContent={"space-between"}
+        justifyContent={"center"}
         gap={"16px"}
         templateColumns="repeat(auto-fit, 240px)"
         templateRows="repeat(auto-fit,400px)"
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => {
-          return (
-            <VideoItem
-              key={v}
-              id={v}
-              title={"Title lorem sdfsdf sdfsdf sdfsdf"}
-              desc={"Description"}
-              thumbnail_url={
-                "https://picsum.photos/200/300"
-              }
-            />
-          );
-        })}
+        {data &&
+          data.map((v) => {
+            return (
+              <VideoItem
+                key={v._id}
+                id={v._id}
+                title={v.title}
+                thumbnail_url={v.img_url}
+              />
+            );
+          })}
       </Grid>
     </Box>
   );
