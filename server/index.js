@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const port = parseInt(process.env.PORT)
 const mongoString = process.env.DATABASE_URL
 const router = require("./routes/index")
+const cors = require("cors")
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -18,6 +19,7 @@ mongoose.connect(mongoString).then(()=>{
   console.log(err);
 })
 
+app.use(cors())
 app.use("/api", router)
 
 app.listen(port, ()=>{
