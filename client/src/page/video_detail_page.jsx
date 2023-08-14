@@ -39,7 +39,7 @@ const VideoDetailPage = () => {
   let { data: videoData, isLoading: isVideoLoading } = useFetch(
     `/video/${video_id}`
   );
-
+  
   useEffect(() => {
     let getComments = async () => {
       let res = await client.get(`/video/${video_id}/comment`);
@@ -136,9 +136,9 @@ const VideoDetailPage = () => {
       <GridItem p={"16px"} height={"100%"} area={"main"}>
         <AspectRatio ratio={16 / 9}>
           <iframe
-            src={videoData?.video_url}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src={`https://www.youtube.com/embed/${ videoData?.video_url?.split("/")[videoData?.video_url?.split("/").length - 1] }?autoplay=1`}
+            title={videoData?.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture;"
             allowFullScreen
           ></iframe>
         </AspectRatio>
