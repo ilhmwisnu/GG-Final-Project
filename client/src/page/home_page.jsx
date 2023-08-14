@@ -16,12 +16,11 @@ const HomePage = () => {
   let [keyword, setKeyword] = useState(null);
   let [data, setData] = useState([]);
 
-  let getData = async () => {
-    let res = await client.get(`/video?keyword=${keyword ?? ""}`);
-    setData(res.data.data);
-  };
-
   useEffect(() => {
+    let getData = async () => {
+      let res = await client.get(`/video?keyword=${keyword ?? ""}`);
+      setData(res.data.data);
+    };
     getData();
   }, [keyword]);
 
