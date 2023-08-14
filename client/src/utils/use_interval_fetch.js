@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { client } from "./http_client";
 
-const useIntervalFetch = (endpoint, interval, callback) => {
+const useIntervalFetch = (endpoint, timeout, callback) => {
   let [isLoading, setIsLoading] = useState(false);
   let [data, setData] = useState(null);
   let [error, setError] = useState(null);
 
   useEffect(() => {
+    
     let getData = async () => {
       try {
         setIsLoading(true);
@@ -22,10 +23,13 @@ const useIntervalFetch = (endpoint, interval, callback) => {
       }
     };
 
-    setInterval(() => {
+    let interval = setInterval(() => {
       getData();
-    }, interval);
-  }, [endpoint, interval, callback]);
+    }, timeout);
+
+    return ()=> clearInterval(interval)
+
+  }, [endpoint, timeout, callback]);
 
   return { data, isLoading, error };
 };
