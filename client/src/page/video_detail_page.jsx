@@ -136,7 +136,7 @@ const VideoDetailPage = () => {
       <GridItem p={"16px"} height={"100%"} area={"main"}>
         <AspectRatio ratio={16 / 9}>
           <iframe
-            src={videoData.video_url}
+            src={videoData?.video_url}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
