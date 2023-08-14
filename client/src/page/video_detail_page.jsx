@@ -22,7 +22,7 @@ import useIntervalFetch from "../utils/use_interval_fetch";
 
 const VideoDetailPage = () => {
   let params = useParams();
-  let video_id = params.video_id;
+  let videoId = params.video_id;
 
   let [username, setUsername] = useState();
   let [userComment, setUserComment] = useState();
@@ -33,14 +33,14 @@ const VideoDetailPage = () => {
     data: prodData,
     isLoading: isProdLoading,
     error: prodError,
-  } = useFetch(`/video/${video_id}/product`);
+  } = useFetch(`/video/${videoId}/product`);
 
   let { data: videoData, isLoading: isVideoLoading } = useFetch(
-    `/video/${video_id}`
+    `/video/${videoId}`
   );
 
   let { data: commentsData } = useIntervalFetch(
-    `/video/${video_id}/comment`,
+    `/video/${videoId}/comment`,
     5000,
     () => {
       bottomComment?.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,7 +49,7 @@ const VideoDetailPage = () => {
 
   let handleSubmit = async (e) => {
     try {
-      await client.post(`/video/${video_id}/comment`, {
+      await client.post(`/video/${videoId}/comment`, {
         username: username,
         comment: userComment,
       });
@@ -140,7 +140,7 @@ const VideoDetailPage = () => {
           ></iframe>
         </AspectRatio>
         {isVideoLoading ? (
-          <SkeletonText />
+          <SkeletonText mt={"24px"} />
         ) : (
           <Text fontWeight={"black"} mt={"24px"} as="h2" className="">
             {videoData?.title}
