@@ -8,7 +8,8 @@
     "setup": "npm i && cp .env.example .env",
     "seed": "node seeder.js",
     "dev": "nodemon index.js",
-    "start" : "node index.js"
+    "start" : "node index.js",
+    "vercel-build" : "echo BUILDING...."
   },
   "keywords": [],
   "author": "",
