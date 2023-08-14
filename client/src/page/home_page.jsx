@@ -18,8 +18,12 @@ const HomePage = () => {
 
   useEffect(() => {
     let getData = async () => {
-      let res = await client.get(`/video?keyword=${keyword ?? ""}`);
-      setData(res.data.data);
+      try {
+        let res = await client.get(`/video?keyword=${keyword ?? ""}`);
+        setData(res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     getData();
   }, [keyword]);
