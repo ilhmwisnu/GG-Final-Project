@@ -34,9 +34,9 @@ async function seed() {
 
   // Product data
   for (let vi = 0; vi < videos.length; vi++) {
-    for (let pi = 0; pi < productSeed.length; pi++) {
+    for (let pi = 0; pi < 5; pi++) {
       await Product.create({
-        ...productSeed[pi],
+        ...productSeed[Math.floor(Math.random() * productSeed.length)],
         video_id: videos[vi]._id,
       });
     }
