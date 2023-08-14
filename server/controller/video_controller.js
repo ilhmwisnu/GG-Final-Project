@@ -82,7 +82,7 @@ const getComments = async (req,res) => {
       throw Error("Video Id is required")
     }
 
-    let data = await Comment.find({ video_id : new mongoose.Types.ObjectId(video_id)})
+    let data = await Comment.find({ video_id : new mongoose.Types.ObjectId(video_id)}).sort ( { created_at : 1  } )
 
     res.json({
       message : "Success get data",
